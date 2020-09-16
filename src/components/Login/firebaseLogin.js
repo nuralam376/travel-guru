@@ -91,3 +91,15 @@ export const firebaseCustomLogin = (email, password) => {
 			return error.message;
 		});
 };
+
+export const firebaseLogout = () => {
+	firebase
+		.auth()
+		.signOut()
+		.then(function () {
+			alert("Logged out successfully");
+		})
+		.catch(function (error) {
+			alert(error.message);
+		});
+};

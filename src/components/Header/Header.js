@@ -10,10 +10,17 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
+import { firebaseLogout } from "../Login/firebaseLogin";
 import "./Header.css";
 
 const Header = () => {
-	const [loggedInUser] = useContext(UserContext);
+	const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+	const firebaseUserLogout = () => {
+		firebaseLogout();
+		setLoggedInUser({});
+	};
+
 	return (
 		<div className="header">
 			<Navbar variant="light">
@@ -48,6 +55,9 @@ const Header = () => {
 						{loggedInUser && loggedInUser.name ? (
 							<>
 								<Nav.Link>{loggedInUser.name}</Nav.Link>
+								<Button variant="danger" onClick={firebaseUserLogout}>
+									Logout
+								</Button>
 							</>
 						) : (
 							<Link to="/login" className="nav-link">
