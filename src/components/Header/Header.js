@@ -8,6 +8,7 @@ import {
 	Container,
 	Image,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
@@ -30,11 +31,21 @@ const Header = () => {
 						/>
 					</Form>
 					<Nav>
-						<Nav.Link href="#home">Home</Nav.Link>
-						<Nav.Link href="#features">Destination</Nav.Link>
-						<Nav.Link href="#pricing">Blog</Nav.Link>
-						<Nav.Link href="#pricing">Contact</Nav.Link>
-						<Button variant="warning">Login</Button>
+						<Link to="/" className="nav-link">
+							Home
+						</Link>
+						<Link to="/" className="nav-link">
+							Destination
+						</Link>
+						<Link to="/" className="nav-link">
+							Blog
+						</Link>
+						<Link to="/" className="nav-link">
+							Contact
+						</Link>
+						<Link to="/login" class="nav-link">
+							<Button variant="warning">Login</Button>
+						</Link>
 					</Nav>
 				</Container>
 			</Navbar>

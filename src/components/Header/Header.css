@@ -21,3 +21,7 @@
 .nav-link:hover {
 	color: lightcoral !important;
 }
+
+.nav-link:focus {
+	color: white !important;
+}
