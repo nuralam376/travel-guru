@@ -73,40 +73,22 @@ const Login = () => {
 						</>
 					)}
 
-					{!newUserRegistration ? (
-						<Button type="submit" variant="warning" className="w-100">
-							Login
-						</Button>
-					) : (
-						<Button type="submit" variant="warning" className="w-100">
-							Create an account
-						</Button>
-					)}
+					<Button type="submit" variant="warning" className="w-100">
+						{newUserRegistration ? "Create an account" : "Login"}
+					</Button>
 				</Form>
-				{!newUserRegistration ? (
-					<p className="m-2">
-						Don't have an account?{" "}
-						<span
-							className="text-warning"
-							style={{ textDecoration: "underline", cursor: "pointer" }}
-							onClick={() => setNewUserRegistration(!newUserRegistration)}
-						>
-							Create an account
-						</span>
-					</p>
-				) : (
-					<p className="m-2">
-						Already have an account?{" "}
-						<span
-							className="text-warning"
-							style={{ textDecoration: "underline", cursor: "pointer" }}
-							onClick={() => setNewUserRegistration(!newUserRegistration)}
-						>
-							Login
-						</span>
-					</p>
-				)}
-				;
+				<p className="m-2">
+					{newUserRegistration
+						? "Don't have an account? "
+						: "Already have an account? "}
+					<span
+						className="text-warning"
+						style={{ textDecoration: "underline", cursor: "pointer" }}
+						onClick={() => setNewUserRegistration(!newUserRegistration)}
+					>
+						{newUserRegistration ? "Create an account" : "Login"}
+					</span>
+				</p>
 			</Container>
 		</div>
 	);
