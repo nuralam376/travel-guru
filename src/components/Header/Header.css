@@ -1,0 +1,23 @@
+.header {
+	padding-top: 10px;
+	padding-bottom: 150px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: white;
+	font-size: 18px;
+	padding: 10px 20px;
+}
+
+.w-25 {
+	width: 10% !important;
+}
+
+.navbar-brand img {
+	color: white;
+	filter: brightness(0) invert(1);
+}
+
+.nav-link:hover {
+	color: lightcoral !important;
+}
