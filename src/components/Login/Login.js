@@ -1,17 +1,54 @@
-import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Container, Form, Button, Image } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../App";
+import { firebaseGoogleLogin } from "./firebaseLogin";
 import "./Login.css";
 
 const Login = () => {
 	const { register, handleSubmit, errors } = useForm();
 	const [newUserRegistration, setNewUserRegistration] = useState(false);
 	const onSubmit = (data) => console.log(data);
+	const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+	const googleLogin = () => {
+		firebaseGoogleLogin()
+			.then((response) => {
+				const userInfo = {
+					name: response.name,
+					email: response.email,
+					success: true,
+					error: "",
+				};
+				setLoggedInUser(userInfo);
+			})
+			.catch((error) => {
+				const userInfo = {
+					name: "",
+					email: "",
+					success: false,
+					error,
+				};
+				setLoggedInUser(userInfo);
+			});
+	};
+
+	const fbLogin = () => {
+		console.log("Facebook Login");
+	};
 
 	return (
 		<div className="login">
 			<Container>
-				<h1>Login</h1>
+				<h1 className="mb-3">
+					{newUserRegistration ? "Create an account" : "Login"}
+				</h1>
+				{loggedInUser && loggedInUser.success ? (
+					<h4 className="text-success">User Logged In Successfully</h4>
+				) : (
+					<h4 className="error">{loggedInUser && loggedInUser.error}</h4>
+				)}
+
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					{newUserRegistration && (
 						<>
@@ -79,16 +116,27 @@ const Login = () => {
 				</Form>
 				<p className="m-2">
 					{newUserRegistration
-						? "Don't have an account? "
-						: "Already have an account? "}
+						? "Already have an account? "
+						: "Don't have an account? "}
 					<span
 						className="text-warning"
 						style={{ textDecoration: "underline", cursor: "pointer" }}
 						onClick={() => setNewUserRegistration(!newUserRegistration)}
 					>
-						{newUserRegistration ? "Create an account" : "Login"}
+						{newUserRegistration ? "Login" : "Create an account"}
 					</span>
 				</p>
+				<div>
+					<h5>------------- Or ---------------- </h5>
+					<p className="firebase-login" onClick={fbLogin}>
+						<Image src="/resources/Icon/fb.png" className="w-25" />
+						&nbsp;&nbsp; Continue With facebook
+					</p>
+					<p className="firebase-login" onClick={googleLogin}>
+						<Image src="/resources/Icon/google.png" className="w-25" />
+						&nbsp; &nbsp;Continue With Google
+					</p>
+				</div>
 			</Container>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
 	Navbar,
 	Nav,
@@ -9,9 +9,11 @@ import {
 	Image,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
 import "./Header.css";
 
 const Header = () => {
+	const [loggedInUser] = useContext(UserContext);
 	return (
 		<div className="header">
 			<Navbar variant="light">
@@ -43,9 +45,15 @@ const Header = () => {
 						<Link to="/" className="nav-link">
 							Contact
 						</Link>
-						<Link to="/login" className="nav-link">
-							<Button variant="warning">Login</Button>
-						</Link>
+						{loggedInUser && loggedInUser.name ? (
+							<>
+								<Nav.Link>{loggedInUser.name}</Nav.Link>
+							</>
+						) : (
+							<Link to="/login" className="nav-link">
+								<Button variant="warning">Login</Button>
+							</Link>
+						)}
 					</Nav>
 				</Container>
 			</Navbar>
