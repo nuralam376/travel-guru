@@ -1,10 +1,6 @@
-* {
-	color: white;
-}
-
 .App {
-	background-image: url("/resources/Image/bgImage.png");
+	/* background-image: url("/resources/Image/bgImage.png");
 	background-color: rgba(0, 0, 0, 0.7);
 	background-blend-mode: overlay;
-	height: 100vh;
+	height: 100vh; */
 }
