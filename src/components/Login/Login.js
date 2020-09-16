@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Container, Form, Button, Image } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../App";
-import { firebaseGoogleLogin } from "./firebaseLogin";
+import { firebaseLogin } from "./firebaseLogin";
 import "./Login.css";
 
 const Login = () => {
@@ -11,8 +11,8 @@ const Login = () => {
 	const onSubmit = (data) => console.log(data);
 	const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
-	const googleLogin = () => {
-		firebaseGoogleLogin()
+	const login = (provider) => {
+		firebaseLogin(provider)
 			.then((response) => {
 				const userInfo = {
 					name: response.name,
@@ -31,10 +31,6 @@ const Login = () => {
 				};
 				setLoggedInUser(userInfo);
 			});
-	};
-
-	const fbLogin = () => {
-		console.log("Facebook Login");
 	};
 
 	return (
@@ -128,11 +124,11 @@ const Login = () => {
 				</p>
 				<div>
 					<h5>------------- Or ---------------- </h5>
-					<p className="firebase-login" onClick={fbLogin}>
+					<p className="firebase-login" onClick={() => login("facebook")}>
 						<Image src="/resources/Icon/fb.png" className="w-25" />
 						&nbsp;&nbsp; Continue With facebook
 					</p>
-					<p className="firebase-login" onClick={googleLogin}>
+					<p className="firebase-login" onClick={() => login("google")}>
 						<Image src="/resources/Icon/google.png" className="w-25" />
 						&nbsp; &nbsp;Continue With Google
 					</p>

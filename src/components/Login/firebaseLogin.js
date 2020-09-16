@@ -10,13 +10,20 @@ import "firebase/firestore";
 
 import "./firebase.config";
 
-export const firebaseGoogleLogin = () => {
-	const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const firebaseLogin = (providerName) => {
+	let provider;
+
+	if (providerName === "google") {
+		provider = new firebase.auth.GoogleAuthProvider();
+	} else if (providerName === "facebook") {
+		provider = new firebase.auth.FacebookAuthProvider();
+	}
 
 	return firebase
 		.auth()
-		.signInWithPopup(googleProvider)
+		.signInWithPopup(provider)
 		.then(function (result) {
+			console.log(result);
 			const { displayName, email } = result.user;
 
 			const signedInUser = {
