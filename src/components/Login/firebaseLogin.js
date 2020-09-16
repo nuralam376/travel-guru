@@ -10,7 +10,7 @@ import "firebase/firestore";
 
 import "./firebase.config";
 
-export const firebaseLogin = (providerName) => {
+export const firebaseProviderLogin = (providerName) => {
 	let provider;
 
 	if (providerName === "google") {
@@ -23,7 +23,61 @@ export const firebaseLogin = (providerName) => {
 		.auth()
 		.signInWithPopup(provider)
 		.then(function (result) {
-			console.log(result);
+			const { displayName, email } = result.user;
+
+			const signedInUser = {
+				name: displayName,
+				email,
+			};
+
+			return signedInUser;
+		})
+		.catch(function (error) {
+			return error.message;
+		});
+};
+
+export const firebaseSignup = (email, password) => {
+	return firebase
+		.auth()
+		.createUserWithEmailAndPassword(email, password)
+		.then(() => {
+			const signUpMessage = {
+				success: true,
+				error: "",
+			};
+			return signUpMessage;
+		})
+		.catch(function (error) {
+			const signUpMessage = {
+				success: false,
+				error: error.message,
+			};
+			return signUpMessage;
+		});
+};
+
+export const firebaseUpdateUserName = (name) => {
+	const user = firebase.auth().currentUser;
+
+	return user
+		.updateProfile({
+			displayName: name,
+		})
+		.then(function () {
+			return;
+		})
+		.catch(function (error) {
+			// An error happened.
+			return;
+		});
+};
+
+export const firebaseCustomLogin = (email, password) => {
+	return firebase
+		.auth()
+		.signInWithEmailAndPassword(email, password)
+		.then((result) => {
 			const { displayName, email } = result.user;
 
 			const signedInUser = {

@@ -2,17 +2,48 @@ import React, { useContext, useState } from "react";
 import { Container, Form, Button, Image } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../App";
-import { firebaseLogin } from "./firebaseLogin";
+import {
+	firebaseSignup,
+	firebaseProviderLogin,
+	firebaseUpdateUserName,
+	firebaseCustomLogin,
+} from "./firebaseLogin";
 import "./Login.css";
 
 const Login = () => {
 	const { register, handleSubmit, errors } = useForm();
 	const [newUserRegistration, setNewUserRegistration] = useState(false);
-	const onSubmit = (data) => console.log(data);
+	const [createdUserSuccess, setCreatedUserSuccess] = useState({});
+
+	const onSubmit = (data) => {
+		const { firstName, lastName, email, password } = data;
+
+		if (newUserRegistration) {
+			firebaseSignup(email, password).then((response) => {
+				const name = `${firstName} ${lastName}`;
+				firebaseUpdateUserName(name);
+				setCreatedUserSuccess({
+					success: response.success,
+					error: response.error,
+				});
+			});
+		} else {
+			firebaseCustomLogin(email, password).then((response) => {
+				const userInfo = {
+					name: response.name,
+					email: response.email,
+					success: true,
+					error: "",
+				};
+				setLoggedInUser(userInfo);
+			});
+		}
+	};
+
 	const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
 	const login = (provider) => {
-		firebaseLogin(provider)
+		firebaseProviderLogin(provider)
 			.then((response) => {
 				const userInfo = {
 					name: response.name,
@@ -39,6 +70,13 @@ const Login = () => {
 				<h1 className="mb-3">
 					{newUserRegistration ? "Create an account" : "Login"}
 				</h1>
+				{createdUserSuccess && createdUserSuccess.success ? (
+					<h4 className="text-success">User created Successfully</h4>
+				) : (
+					<p className="text-danger">
+						{createdUserSuccess && createdUserSuccess.error}
+					</p>
+				)}
 				{loggedInUser && loggedInUser.success ? (
 					<h4 className="text-success">User Logged In Successfully</h4>
 				) : (
