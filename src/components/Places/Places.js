@@ -1,33 +1,58 @@
-import React from "react";
-import { Button, Col, Container, Row, Image } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import allPlaces from "../../SampleData/places";
+import Place from "../Place/Place";
 
 const Places = () => {
+	const [places] = useState(allPlaces);
+	const [place, setPlace] = useState({});
+	const { name, description } = place;
+	let placeId = useRef(0);
+
+	useEffect(() => {
+		selectedPlaceInfo(++placeId.current);
+	}, []);
+
+	// Image carousel setup every 5 seconds
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (placeId.current === 3) {
+				placeId.current = 0;
+			}
+			selectedPlaceInfo(++placeId.current);
+		}, 5000);
+		return () => clearInterval(interval);
+	}, []);
+
+	const selectedPlace = (event, id) => {
+		event.preventDefault();
+		placeId.current = id;
+		selectedPlaceInfo(placeId.current);
+	};
+
+	const selectedPlaceInfo = (id) => {
+		const placeInfo = allPlaces.find((place) => place.id === id);
+		setPlace(placeInfo);
+	};
+
 	return (
 		<div className="places">
 			<Container>
 				<Row>
 					<Col md={4}>
-						<h1>Cox's Bazar</h1>
-						<p style={{ textAlign: "justify" }}>
-							The Sundarbans is a mangrove area in the delta formed by the
-							confluence of the Ganges, Brahmaputra and Meghna Rivers in the Bay
-							of Bengal. It spans from the Hooghly River in India's state of
-							West Bengal to the Baleswar River in Bangladesh. It comprises
-							closed and open mangrove forests, agriculturally used land
-						</p>
+						<h1>{name}</h1>
+						<p style={{ textAlign: "justify" }}>{description}</p>
 						<Button variant="warning">Booking</Button>
 					</Col>
 					<Col md={8}>
 						<Row>
-							<Col md={4}>
-								<Image src="/resources/Image/Sajek.png" thumbnail />
-							</Col>
-							<Col md={4}>
-								<Image src="/resources/Image/Sajek.png" thumbnail />
-							</Col>
-							<Col md={4}>
-								<Image src="/resources/Image/Sajek.png" thumbnail />
-							</Col>
+							{places.map((place) => (
+								<Place
+									key={place.id}
+									place={place}
+									selectedPlace={selectedPlace}
+								/>
+							))}
 						</Row>
 					</Col>
 				</Row>
