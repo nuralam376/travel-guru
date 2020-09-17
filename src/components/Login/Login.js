@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Container, Form, Button, Image } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
+import LoginForm from "../LoginForm/LoginForm";
 import {
 	firebaseSignup,
 	firebaseProviderLogin,
@@ -12,7 +13,6 @@ import {
 import "./Login.css";
 
 const Login = () => {
-	const { register, handleSubmit, watch, errors, clearErrors } = useForm();
 	const [newUserRegistration, setNewUserRegistration] = useState(false);
 	const [createdUserSuccess, setCreatedUserSuccess] = useState({});
 	const history = useHistory();
@@ -26,7 +26,8 @@ const Login = () => {
 		if (newUserRegistration) {
 			firebaseSignup(email, password).then((response) => {
 				const name = `${firstName} ${lastName}`;
-				firebaseUpdateUserName(name);
+				// Adds name
+				if (response.success) firebaseUpdateUserName(name);
 				setCreatedUserSuccess({
 					success: response.success,
 					error: response.error,
@@ -76,7 +77,6 @@ const Login = () => {
 	const handleLoginSignup = () => {
 		setNewUserRegistration(!newUserRegistration);
 		setCreatedUserSuccess({});
-		clearErrors(["email", "password"]);
 	};
 
 	return (
@@ -104,85 +104,10 @@ const Login = () => {
 						<p className="text-danger">{loggedInUser && loggedInUser.error}</p>
 					)}
 
-					<Form onSubmit={handleSubmit(onSubmit)}>
-						{newUserRegistration && (
-							<>
-								<Form.Control
-									type="text"
-									name="firstName"
-									ref={register({ required: true })}
-									placeholder="First Name"
-								/>
-								{errors.firstName && (
-									<span className="text-danger">* This field is required</span>
-								)}
-								<br />
-								<Form.Control
-									type="text"
-									name="lastName"
-									ref={register({ required: true })}
-									placeholder="Last Name"
-								/>
-								{errors.lastName && (
-									<span className="text-danger">* This field is required</span>
-								)}
-								<br />
-							</>
-						)}
-						<Form.Control
-							type="text"
-							name="email"
-							ref={register({
-								required: true,
-								pattern: {
-									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-									message: "Email must be valid",
-								},
-							})}
-							placeholder="Email"
-						/>
-
-						{errors.email && (
-							<span className="text-danger">
-								* {errors.email.message || "This field is required"}
-							</span>
-						)}
-						<br />
-						<Form.Control
-							type="password"
-							name="password"
-							ref={register({ required: true })}
-							placeholder="Password"
-						/>
-						{errors.password && (
-							<span className="text-danger">* This field is required</span>
-						)}
-						<br />
-
-						{newUserRegistration && (
-							<>
-								<Form.Control
-									type="password"
-									name="confirmPassword"
-									ref={register({
-										required: true,
-										validate: (value) => value === watch("password"),
-									})}
-									placeholder="Confirm Password"
-								/>
-								{errors.confirmPassword && (
-									<span className="text-danger">
-										* Passwords must be matched
-									</span>
-								)}
-								<br />
-							</>
-						)}
-
-						<Button type="submit" variant="warning" className="w-100">
-							{newUserRegistration ? "Create an account" : "Login"}
-						</Button>
-					</Form>
+					<LoginForm
+						newUserRegistration={newUserRegistration}
+						onSubmit={onSubmit}
+					/>
 					<p className="m-2">
 						{newUserRegistration
 							? "Already have an account? "
