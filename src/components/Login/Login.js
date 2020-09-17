@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Container, Image } from "react-bootstrap";
-import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
 import LoginForm from "../LoginForm/LoginForm";
@@ -27,7 +26,10 @@ const Login = () => {
 			firebaseSignup(email, password).then((response) => {
 				const name = `${firstName} ${lastName}`;
 				// Adds name
-				if (response.success) firebaseUpdateUserName(name);
+				if (response.success) {
+					firebaseUpdateUserName(name);
+					setNewUserRegistration(false);
+				}
 				setCreatedUserSuccess({
 					success: response.success,
 					error: response.error,

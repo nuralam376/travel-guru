@@ -28,14 +28,14 @@ const Header = () => {
 			<Navbar variant="light">
 				<Container>
 					<Row>
-						<Col xs={12} sm={12} md={7}>
+						<Col xs={12} sm={12} md={12} lg={6}>
 							<Row>
-								<Col xs={12} sm={12} md={4}>
+								<Col xs={12} sm={12} md={12} lg={4}>
 									<Navbar.Brand href="#home" className="w-50">
 										<Image src="/resources/logo.png" fluid />
 									</Navbar.Brand>
 								</Col>
-								<Col xs={12} sm={12} md={8}>
+								<Col xs={12} sm={12} md={12} lg={8}>
 									<Form inline>
 										<FormControl
 											type="text"
@@ -46,7 +46,7 @@ const Header = () => {
 								</Col>
 							</Row>
 						</Col>
-						<Col xs={12} sm={12} md={5}>
+						<Col xs={12} sm={12} md={12} lg={6}>
 							<Nav>
 								<Link to="/" className="nav-link">
 									Home
