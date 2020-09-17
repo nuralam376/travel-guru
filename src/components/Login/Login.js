@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Container, Form, Button, Image } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
 import {
 	firebaseSignup,
@@ -14,6 +15,10 @@ const Login = () => {
 	const { register, handleSubmit, watch, errors, clearErrors } = useForm();
 	const [newUserRegistration, setNewUserRegistration] = useState(false);
 	const [createdUserSuccess, setCreatedUserSuccess] = useState({});
+	const history = useHistory();
+	const location = useLocation();
+
+	const { from } = location.state || { from: { pathname: "/" } };
 
 	const onSubmit = (data) => {
 		const { firstName, lastName, email, password } = data;
@@ -35,8 +40,10 @@ const Login = () => {
 					success: response.success,
 					error: response.error,
 				};
-				if (response.success) setLoggedInUser(userInfo);
-				else setCreatedUserSuccess(userInfo);
+				if (response.success) {
+					setLoggedInUser(userInfo);
+					history.replace(from);
+				} else setCreatedUserSuccess(userInfo);
 			});
 		}
 	};
@@ -53,6 +60,7 @@ const Login = () => {
 					error: "",
 				};
 				setLoggedInUser(userInfo);
+				history.replace(from);
 			})
 			.catch((error) => {
 				const userInfo = {

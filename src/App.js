@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
 import BookingPlace from "./components/BookingPlace/BookingPlace";
 import BookingSearchResult from "./components/BookingSearchResult/BookingSearchResult";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 export const UserContext = createContext();
 
@@ -35,9 +36,9 @@ function App() {
 						<Route exact path="/place/:placeId">
 							<BookingPlace />
 						</Route>
-						<Route exact path="/place/search/:destination">
+						<PrivateRoute exact path="/place/search/:destination">
 							<BookingSearchResult />
-						</Route>
+						</PrivateRoute>
 					</Switch>
 				</Router>
 			</UserContext.Provider>
