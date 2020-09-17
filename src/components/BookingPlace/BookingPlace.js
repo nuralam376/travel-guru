@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { UserContext } from "../../App";
 import places from "../../SampleData/places";
 
 const BookingPlace = () => {
 	const { placeId } = useParams();
 	const [place, setPlace] = useState({});
 	const { name, description } = place;
+	const history = useHistory();
+	const [
+		loggedInUser,
+		setLoggedInUser,
+		bookingDetails,
+		setBookingDetails,
+	] = useContext(UserContext);
 
 	const { register, handleSubmit, errors } = useForm();
-	const onSubmit = (data) => console.log(data);
+
+	const onSubmit = (data) => {
+		setBookingDetails(data);
+		history.push(`/place/search/${data.destination}`);
+	};
 
 	useEffect(() => {
 		const placeInfo = places.find((place) => place.id === +placeId);
 		setPlace(placeInfo);
 	}, [placeId]);
+
 	return (
 		<Container>
 			<Row>
