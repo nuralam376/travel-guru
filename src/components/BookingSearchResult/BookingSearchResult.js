@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
 import places from "../../SampleData/places";
 import Hotel from "../Hotel/Hotel";
@@ -8,6 +8,8 @@ import Hotel from "../Hotel/Hotel";
 const BookingSearchResult = () => {
 	const { destination } = useParams();
 	const [hotels, setHotels] = useState([]);
+	const history = useHistory();
+
 	const [
 		loggedInUSer,
 		setLoggedInUser,
@@ -18,7 +20,14 @@ const BookingSearchResult = () => {
 
 	useEffect(() => {
 		const placeInfo = places.find((place) => place.name === destination);
-		setHotels(placeInfo.hotels);
+
+		// Shows the details of the hotel if found. Otherwise, redirects to homepage
+		if (placeInfo) {
+			setHotels(placeInfo.hotels);
+		} else {
+			alert("No Hotel found in this place");
+			history.push("/");
+		}
 	}, []);
 
 	return (

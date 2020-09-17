@@ -24,7 +24,14 @@ const BookingPlace = () => {
 
 	useEffect(() => {
 		const placeInfo = places.find((place) => place.id === +placeId);
-		setPlace(placeInfo);
+
+		// Shows the info of the place if available.
+		if (placeInfo) {
+			setPlace(placeInfo);
+		} else {
+			alert("No Place Found");
+			history.push("/");
+		}
 	}, [placeId]);
 
 	return (
