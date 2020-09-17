@@ -12,16 +12,3 @@
 .w-25 {
 	width: 10% !important;
 }
-
-.navbar-brand img {
-	/* color: white; */
-	/* filter: brightness(0) invert(1); */
-}
-
-.nav-link:hover {
-	color: lightcoral !important;
-}
-
-.nav-link:focus {
-	color: white !important;
-}

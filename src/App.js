@@ -36,9 +36,9 @@ function App() {
 						<Route exact path="/place/:placeId">
 							<BookingPlace />
 						</Route>
-						<Route exact path="/place/search/:destination">
+						<PrivateRoute exact path="/place/search/:destination">
 							<BookingSearchResult />
-						</Route>
+						</PrivateRoute>
 						<Route path="*">
 							<NotFound />
 						</Route>

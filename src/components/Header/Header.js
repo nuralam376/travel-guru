@@ -7,6 +7,8 @@ import {
 	FormControl,
 	Container,
 	Image,
+	Row,
+	Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
@@ -25,46 +27,54 @@ const Header = () => {
 		<div className="header">
 			<Navbar variant="light">
 				<Container>
-					<Navbar.Brand
-						href="#home"
-						className="w-25"
-						style={{ height: "50px" }}
-					>
-						<Image src="/resources/logo.png" fluid style={{ height: "50px" }} />
-					</Navbar.Brand>
-					<Form inline>
-						<FormControl
-							type="text"
-							placeholder="Search your destination"
-							className="mr-sm-1"
-						/>
-					</Form>
-					<Nav>
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-						<Link to="/" className="nav-link">
-							Destination
-						</Link>
-						<Link to="/" className="nav-link">
-							Blog
-						</Link>
-						<Link to="/" className="nav-link">
-							Contact
-						</Link>
-						{loggedInUser && loggedInUser.name ? (
-							<>
-								<Nav.Link>{loggedInUser.name}</Nav.Link>
-								<Button variant="danger" onClick={firebaseUserLogout}>
-									Logout
-								</Button>
-							</>
-						) : (
-							<Link to="/login" className="nav-link">
-								<Button variant="warning">Login</Button>
-							</Link>
-						)}
-					</Nav>
+					<Row>
+						<Col xs={12} sm={12} md={7}>
+							<Row>
+								<Col xs={12} sm={12} md={4}>
+									<Navbar.Brand href="#home" className="w-50">
+										<Image src="/resources/logo.png" fluid />
+									</Navbar.Brand>
+								</Col>
+								<Col xs={12} sm={12} md={8}>
+									<Form inline>
+										<FormControl
+											type="text"
+											placeholder="Search your destination"
+											className="mr-sm-1"
+										/>
+									</Form>
+								</Col>
+							</Row>
+						</Col>
+						<Col xs={12} sm={12} md={5}>
+							<Nav>
+								<Link to="/" className="nav-link">
+									Home
+								</Link>
+								<Link to="/" className="nav-link">
+									Destination
+								</Link>
+								<Link to="/" className="nav-link">
+									Blog
+								</Link>
+								<Link to="/" className="nav-link">
+									Contact
+								</Link>
+								{loggedInUser && loggedInUser.name ? (
+									<>
+										<Nav.Link>{loggedInUser.name}</Nav.Link>
+										<Button variant="danger" onClick={firebaseUserLogout}>
+											Logout
+										</Button>
+									</>
+								) : (
+									<Link to="/login" className="nav-link">
+										<Button variant="warning">Login</Button>
+									</Link>
+								)}
+							</Nav>
+						</Col>
+					</Row>
 				</Container>
 			</Navbar>
 		</div>

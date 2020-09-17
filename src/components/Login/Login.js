@@ -57,18 +57,18 @@ const Login = () => {
 				const userInfo = {
 					name: response.name,
 					email: response.email,
-					success: true,
-					error: "",
+					success: response.success,
+					error: response.error,
 				};
 				setLoggedInUser(userInfo);
 				history.replace(from);
 			})
-			.catch((error) => {
+			.catch((response) => {
 				const userInfo = {
-					name: "",
-					email: "",
-					success: false,
-					error,
+					name: response.name,
+					email: response.email,
+					success: response.success,
+					error: response.error,
 				};
 				setLoggedInUser(userInfo);
 			});

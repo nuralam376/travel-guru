@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
 import places from "../../SampleData/places";
 import BookingForm from "../BookingForm/BookingForm";
@@ -30,7 +30,6 @@ const BookingPlace = () => {
 			setPlace(placeInfo);
 		} else {
 			alert("No Place Found");
-			history.push("/");
 		}
 	}, [placeId]);
 

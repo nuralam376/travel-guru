@@ -28,12 +28,21 @@ export const firebaseProviderLogin = (providerName) => {
 			const signedInUser = {
 				name: displayName,
 				email,
+				success: true,
+				error: "",
 			};
 
 			return signedInUser;
 		})
 		.catch(function (error) {
-			return error.message;
+			const signedInUser = {
+				name: "",
+				email: "",
+				success: false,
+				error: error.message,
+			};
+
+			return signedInUser;
 		});
 };
 
