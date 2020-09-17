@@ -3,10 +3,18 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
 const LoginForm = ({ onSubmit, newUserRegistration }) => {
-	const { register, handleSubmit, watch, errors, clearErrors } = useForm();
+	const {
+		register,
+		handleSubmit,
+		watch,
+		errors,
+		clearErrors,
+		reset,
+	} = useForm();
 
 	useEffect(() => {
 		clearErrors(["email", "password"]);
+		reset();
 	}, [newUserRegistration, clearErrors]);
 
 	return (

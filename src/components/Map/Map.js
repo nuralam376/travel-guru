@@ -9,20 +9,19 @@ const containerStyle = {
 	height: "100vh",
 };
 
-const center = {
-	lat: 23.777176,
-	lng: 90.399452,
-};
-
-const Map = () => {
+const Map = ({ destination }) => {
 	const [map, setMap] = useState(null);
+	const [center, setCenter] = useState({ lat: 23.777176, lng: 90.399452 });
 
 	useEffect(() => {
-		// Get latidude & longitude from address.
-		Geocode.fromAddress("Cox's bazar").then(
+		// Get latitude & longitude from address.
+		Geocode.fromAddress(destination).then(
 			(response) => {
 				const { lat, lng } = response.results[0].geometry.location;
-				console.log("Location", lat, lng);
+				setCenter({
+					lat,
+					lng,
+				});
 			},
 			(error) => {
 				console.error("Error", error);
@@ -45,7 +44,7 @@ const Map = () => {
 			<GoogleMap
 				mapContainerStyle={containerStyle}
 				center={center}
-				zoom={16}
+				zoom={8}
 				onLoad={onLoad}
 				onUnmount={onUnmount}
 			></GoogleMap>

@@ -44,7 +44,7 @@ const BookingSearchResult = () => {
 					))}
 				</Col>
 				<Col md={6} className="ml-auto">
-					<Map />
+					<Map destination={destination} />
 				</Col>
 			</Row>
 		</Container>
