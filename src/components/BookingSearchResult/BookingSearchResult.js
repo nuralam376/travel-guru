@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../App";
+import places from "../../SampleData/places";
+import Hotel from "../Hotel/Hotel";
 
 const BookingSearchResult = () => {
 	const { destination } = useParams();
+	const [hotels, setHotels] = useState([]);
 	const [
 		loggedInUSer,
 		setLoggedInUser,
@@ -12,6 +15,11 @@ const BookingSearchResult = () => {
 		setBookingDetails,
 	] = useContext(UserContext);
 	const { from, to } = bookingDetails;
+
+	useEffect(() => {
+		const placeInfo = places.find((place) => place.name === destination);
+		setHotels(placeInfo.hotels);
+	}, []);
 
 	return (
 		<Container>
@@ -21,57 +29,9 @@ const BookingSearchResult = () => {
 						{from} - {to}
 					</p>
 					<h3>Stay in : {destination}</h3>
-					<Row>
-						<Col md={6}>
-							<Image
-								src="/resources/Image/bgImage.png"
-								thumbnail
-								className="w-100"
-							/>
-						</Col>
-						<Col md={6}>
-							<h6>Light Bright airy stylish apt & safe peaceful stay</h6>
-							<p>
-								4 guests 2 bedrooms 2 beds 2 baths <br />
-								Wifi Air conditioning kitchen
-								<br />
-								Cancellation flexibility available
-								<br />* 4.9 (20) $34/night $167 total
-							</p>
-						</Col>
-					</Row>
-					<Row>
-						<Col md={6}>
-							<Image
-								src="/resources/Image/bgImage.png"
-								thumbnail
-								className="w-100"
-							/>
-						</Col>
-						<Col md={6}>
-							<h6>Light Bright airy stylish apt & safe peaceful stay</h6>
-							<p>4 guests 2 bedrooms 2 beds 2 baths </p>
-							<p>Wifi Air conditioning kitchen</p>
-							<p>Cancellation flexibility available</p>
-							<p>* 4.9 (20) $34/night $167 total</p>
-						</Col>
-					</Row>
-					<Row>
-						<Col md={6}>
-							<Image
-								src="/resources/Image/bgImage.png"
-								thumbnail
-								className="w-100"
-							/>
-						</Col>
-						<Col md={6}>
-							<h6>Light Bright airy stylish apt & safe peaceful stay</h6>
-							<p>4 guests 2 bedrooms 2 beds 2 baths </p>
-							<p>Wifi Air conditioning kitchen</p>
-							<p>Cancellation flexibility available</p>
-							<p>* 4.9 (20) $34/night $167 total</p>
-						</Col>
-					</Row>
+					{hotels.map((hotel) => (
+						<Hotel key={hotel.id} hotel={hotel} />
+					))}
 				</Col>
 				<Col md={6} className="ml-auto">
 					<iframe
