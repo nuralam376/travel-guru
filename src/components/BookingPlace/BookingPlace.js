@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
 import places from "../../SampleData/places";
+import BookingForm from "../BookingForm/BookingForm";
+import PlaceInfo from "../PlaceInfo/PlaceInfo";
 
 const BookingPlace = () => {
 	const { placeId } = useParams();
 	const [place, setPlace] = useState({});
-	const { name, description } = place;
 	const history = useHistory();
 	const [
 		loggedInUser,
@@ -16,8 +16,6 @@ const BookingPlace = () => {
 		bookingDetails,
 		setBookingDetails,
 	] = useContext(UserContext);
-
-	const { register, handleSubmit, errors } = useForm();
 
 	const onSubmit = (data) => {
 		setBookingDetails(data);
@@ -33,71 +31,10 @@ const BookingPlace = () => {
 		<Container>
 			<Row>
 				<Col md={4}>
-					<h1>{name}</h1>
-					<p style={{ textAlign: "justify" }}>{description}</p>
+					<PlaceInfo place={place} handleBooking={false} />
 				</Col>
 				<Col md={6} className="ml-auto">
-					<form onSubmit={handleSubmit(onSubmit)} className="w-75">
-						<label htmlFor="origin">Origin</label>
-						<input
-							name="origin"
-							ref={register({ required: true })}
-							className="form-control"
-							id="origin"
-						/>
-						{errors.origin && (
-							<span className="text-danger">* This field is required</span>
-						)}
-						<br />
-						<label htmlFor="origin">Destination</label>
-						<input
-							name="destination"
-							defaultValue={name}
-							ref={register({ required: true })}
-							className="form-control"
-							id="destination"
-							readOnly
-						/>
-						{/* errors will return when field validation fails  */}
-						{errors.destination && (
-							<span className="text-danger">* This field is required</span>
-						)}
-						<br />
-						<Row>
-							<Col md={6}>
-								<label htmlFor="from">From</label>
-								<input
-									type="date"
-									name="from"
-									ref={register({ required: true })}
-									className="form-control"
-									id="from"
-								/>
-								{errors.from && (
-									<span className="text-danger">* This field is required</span>
-								)}
-							</Col>
-							<Col md={6}>
-								<label htmlFor="to">To</label>
-								<input
-									type="date"
-									name="to"
-									ref={register({ required: true })}
-									className="form-control"
-									id="to"
-								/>
-								{errors.to && (
-									<span className="text-danger">* This field is required</span>
-								)}
-							</Col>
-						</Row>
-						<br />
-						<input
-							type="submit"
-							value="Start booking"
-							className="btn btn-warning w-100"
-						/>
-					</form>
+					<BookingForm onSubmit={onSubmit} place={place} />
 				</Col>
 			</Row>
 		</Container>

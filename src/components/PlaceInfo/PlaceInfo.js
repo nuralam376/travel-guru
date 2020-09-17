@@ -8,9 +8,11 @@ const PlaceInfo = ({ place, handleBooking }) => {
 		<div>
 			<h1>{name}</h1>
 			<p style={{ textAlign: "justify" }}>{description}</p>
-			<Button variant="warning" onClick={() => handleBooking(id)}>
-				Booking
-			</Button>
+			{handleBooking && (
+				<Button variant="warning" onClick={() => handleBooking(id)}>
+					Booking
+				</Button>
+			)}
 		</div>
 	);
 };
