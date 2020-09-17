@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import BookingPlace from "./components/BookingPlace/BookingPlace";
 import BookingSearchResult from "./components/BookingSearchResult/BookingSearchResult";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import NotFound from "./components/NotFound/NotFound";
 
 export const UserContext = createContext();
 
@@ -32,13 +33,15 @@ function App() {
 						<Route exact path="/login">
 							<Login />
 						</Route>
-
 						<Route exact path="/place/:placeId">
 							<BookingPlace />
 						</Route>
 						<PrivateRoute exact path="/place/search/:destination">
 							<BookingSearchResult />
 						</PrivateRoute>
+						<Route path="*">
+							<NotFound />
+						</Route>
 					</Switch>
 				</Router>
 			</UserContext.Provider>
