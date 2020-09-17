@@ -11,7 +11,7 @@ import {
 import "./Login.css";
 
 const Login = () => {
-	const { register, handleSubmit, watch, errors } = useForm();
+	const { register, handleSubmit, watch, errors, clearErrors } = useForm();
 	const [newUserRegistration, setNewUserRegistration] = useState(false);
 	const [createdUserSuccess, setCreatedUserSuccess] = useState({});
 
@@ -68,6 +68,7 @@ const Login = () => {
 	const handleLoginSignup = () => {
 		setNewUserRegistration(!newUserRegistration);
 		setCreatedUserSuccess({});
+		clearErrors(["email", "password"]);
 	};
 
 	return (
@@ -114,7 +115,7 @@ const Login = () => {
 									ref={register({ required: true })}
 									placeholder="Last Name"
 								/>
-								{errors.email && (
+								{errors.lastName && (
 									<span className="text-danger">* This field is required</span>
 								)}
 								<br />
@@ -123,11 +124,20 @@ const Login = () => {
 						<Form.Control
 							type="text"
 							name="email"
-							ref={register({ required: true })}
-							placeholder="Username or Email"
+							ref={register({
+								required: true,
+								pattern: {
+									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+									message: "Email must be valid",
+								},
+							})}
+							placeholder="Email"
 						/>
+
 						{errors.email && (
-							<span className="text-danger">* This field is required</span>
+							<span className="text-danger">
+								* {errors.email.message || "This field is required"}
+							</span>
 						)}
 						<br />
 						<Form.Control
