@@ -32,10 +32,11 @@ const Login = () => {
 				const userInfo = {
 					name: response.name,
 					email: response.email,
-					success: true,
-					error: "",
+					success: response.success,
+					error: response.error,
 				};
-				setLoggedInUser(userInfo);
+				if (response.success) setLoggedInUser(userInfo);
+				else setCreatedUserSuccess(userInfo);
 			});
 		}
 	};
@@ -64,6 +65,11 @@ const Login = () => {
 			});
 	};
 
+	const handleLoginSignup = () => {
+		setNewUserRegistration(!newUserRegistration);
+		setCreatedUserSuccess({});
+	};
+
 	return (
 		<div className="login">
 			{loggedInUser && loggedInUser.name ? (
@@ -84,9 +90,9 @@ const Login = () => {
 						</p>
 					)}
 					{loggedInUser && loggedInUser.success ? (
-						<h4 className="text-success">User Logged In Successfully</h4>
+						<p className="text-success">User Logged In Successfully</p>
 					) : (
-						<h4 className="error">{loggedInUser && loggedInUser.error}</h4>
+						<p className="text-danger">{loggedInUser && loggedInUser.error}</p>
 					)}
 
 					<Form onSubmit={handleSubmit(onSubmit)}>
@@ -166,7 +172,7 @@ const Login = () => {
 						<span
 							className="text-warning"
 							style={{ textDecoration: "underline", cursor: "pointer" }}
-							onClick={() => setNewUserRegistration(!newUserRegistration)}
+							onClick={() => handleLoginSignup()}
 						>
 							{newUserRegistration ? "Login" : "Create an account"}
 						</span>
