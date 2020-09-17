@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Image } from "react-bootstrap";
 
-const Place = ({ place, selectedPlace }) => {
+const PlaceImage = ({ place, selectedPlace }) => {
 	const { id, image } = place;
 	return (
 		<Col md={4}>
@@ -12,4 +12,4 @@ const Place = ({ place, selectedPlace }) => {
 	);
 };
 
-export default Place;
+export default PlaceImage;

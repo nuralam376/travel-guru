@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import allPlaces from "../../SampleData/places";
-import Place from "../Place/Place";
+import PlaceImage from "../PlaceImage/PlaceImage";
+import PlaceInfo from "../PlaceInfo/PlaceInfo";
 
 const Places = () => {
 	const [places] = useState(allPlaces);
 	const [place, setPlace] = useState({});
-	const { name, description } = place;
 	let placeId = useRef(0);
+	const history = useHistory();
 
 	useEffect(() => {
 		selectedPlaceInfo(++placeId.current);
@@ -35,19 +37,21 @@ const Places = () => {
 		setPlace(placeInfo);
 	};
 
+	const handleBooking = (id) => {
+		history.push(`/place/${id}`);
+	};
+
 	return (
 		<div className="places">
 			<Container>
 				<Row>
 					<Col md={4}>
-						<h1>{name}</h1>
-						<p style={{ textAlign: "justify" }}>{description}</p>
-						<Button variant="warning">Booking</Button>
+						<PlaceInfo place={place} handleBooking={handleBooking} />
 					</Col>
 					<Col md={8}>
 						<Row>
 							{places.map((place) => (
-								<Place
+								<PlaceImage
 									key={place.id}
 									place={place}
 									selectedPlace={selectedPlace}

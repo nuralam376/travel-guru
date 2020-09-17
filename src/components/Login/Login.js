@@ -7,7 +7,6 @@ import {
 	firebaseProviderLogin,
 	firebaseUpdateUserName,
 	firebaseCustomLogin,
-	firebaseLogout,
 } from "./firebaseLogin";
 import "./Login.css";
 

@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Places from "./components/Places/Places";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
+import BookingPlace from "./components/BookingPlace/BookingPlace";
 
 export const UserContext = createContext();
 
@@ -20,6 +21,9 @@ function App() {
 						</Route>
 						<Route exact path="/login">
 							<Login />
+						</Route>
+						<Route exact path="/place/:placeId">
+							<BookingPlace />
 						</Route>
 					</Switch>
 				</Router>
