@@ -11,7 +11,7 @@ import {
 import "./Login.css";
 
 const Login = () => {
-	const { register, handleSubmit, errors } = useForm();
+	const { register, handleSubmit, watch, errors } = useForm();
 	const [newUserRegistration, setNewUserRegistration] = useState(false);
 	const [createdUserSuccess, setCreatedUserSuccess] = useState({});
 
@@ -139,12 +139,17 @@ const Login = () => {
 							<>
 								<Form.Control
 									type="password"
-									name="password"
-									ref={register({ required: true })}
+									name="confirmPassword"
+									ref={register({
+										required: true,
+										validate: (value) => value === watch("password"),
+									})}
 									placeholder="Confirm Password"
 								/>
-								{errors.password && (
-									<span className="text-danger">* This field is required</span>
+								{errors.confirmPassword && (
+									<span className="text-danger">
+										* Passwords must be matched
+									</span>
 								)}
 								<br />
 							</>
