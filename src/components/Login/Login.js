@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Container, Image } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";

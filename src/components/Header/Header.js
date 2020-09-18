@@ -31,7 +31,7 @@ const Header = () => {
 						<Col xs={12} sm={12} md={12} lg={6}>
 							<Row>
 								<Col xs={12} sm={12} md={12} lg={4}>
-									<Navbar.Brand className="w-50">
+									<Navbar.Brand className="w-50 logo">
 										<Image src="/resources/logo.png" fluid />
 									</Navbar.Brand>
 								</Col>
@@ -47,7 +47,7 @@ const Header = () => {
 							</Row>
 						</Col>
 						<Col xs={12} sm={12} md={12} lg={6}>
-							<Nav>
+							<Nav className="nav">
 								<Link to="/" className="nav-link">
 									Home
 								</Link>
