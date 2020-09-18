@@ -8,6 +8,7 @@ import BookingPlace from "./components/BookingPlace/BookingPlace";
 import BookingSearchResult from "./components/BookingSearchResult/BookingSearchResult";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
+import Privacy from "./components/Privacy/Privacy";
 
 export const UserContext = createContext();
 
@@ -39,6 +40,9 @@ function App() {
 						<PrivateRoute exact path="/place/search/:destination">
 							<BookingSearchResult />
 						</PrivateRoute>
+						<Route exact path="/privacy">
+							<Privacy />
+						</Route>
 						<Route path="*">
 							<NotFound />
 						</Route>
