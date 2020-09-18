@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
 import places from "../../SampleData/places";
 import BookingForm from "../BookingForm/BookingForm";
@@ -11,9 +11,9 @@ const BookingPlace = () => {
 	const [place, setPlace] = useState({});
 	const history = useHistory();
 	const [
-		loggedInUser,
-		setLoggedInUser,
-		bookingDetails,
+		loggedInUser, // eslint-disable-line
+		setLoggedInUser, // eslint-disable-line
+		bookingDetails, // eslint-disable-line
 		setBookingDetails,
 	] = useContext(UserContext);
 

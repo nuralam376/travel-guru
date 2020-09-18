@@ -10,7 +10,7 @@ const containerStyle = {
 };
 
 const Map = ({ destination }) => {
-	const [map, setMap] = useState(null);
+	const [map, setMap] = useState(null); // eslint-disable-line
 	const [center, setCenter] = useState({ lat: 23.777176, lng: 90.399452 });
 
 	useEffect(() => {
@@ -27,7 +27,7 @@ const Map = ({ destination }) => {
 				console.error("Error", error);
 			}
 		);
-	}, []);
+	}, [destination]);
 
 	const onLoad = useCallback(function callback(map) {
 		const bounds = new window.google.maps.LatLngBounds();

@@ -12,10 +12,10 @@ const BookingSearchResult = () => {
 	const history = useHistory();
 
 	const [
-		loggedInUSer,
-		setLoggedInUser,
+		loggedInUSer, // eslint-disable-line
+		setLoggedInUser, // eslint-disable-line
 		bookingDetails,
-		setBookingDetails,
+		setBookingDetails, // eslint-disable-line
 	] = useContext(UserContext);
 	const { from, to } = bookingDetails;
 
@@ -29,7 +29,7 @@ const BookingSearchResult = () => {
 			alert("No Hotel found in this place");
 			history.push("/");
 		}
-	}, []);
+	}, [destination, history]);
 
 	return (
 		<Container>

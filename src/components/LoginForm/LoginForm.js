@@ -15,7 +15,7 @@ const LoginForm = ({ onSubmit, newUserRegistration }) => {
 	useEffect(() => {
 		clearErrors(["email", "password"]);
 		reset();
-	}, [newUserRegistration, clearErrors]);
+	}, [clearErrors, reset]);
 
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
