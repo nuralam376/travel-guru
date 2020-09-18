@@ -7,7 +7,7 @@ const PlaceImage = ({ place, selectedPlace }) => {
 		<Col md={4}>
 			<a href="/" onClick={(e) => selectedPlace(e, id)}>
 				<Image src={image} thumbnail style={{ border: "none" }} />
-				<span>{name}</span>
+				<span style={{ textAlign: "center", display: "block" }}>{name}</span>
 			</a>
 		</Col>
 	);

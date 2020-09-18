@@ -22,7 +22,7 @@ const Places = () => {
 				placeId.current = 0;
 			}
 			selectedPlaceInfo(++placeId.current);
-		}, 5000);
+		}, 7000);
 		return () => clearInterval(interval);
 	}, []);
 
