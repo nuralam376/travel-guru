@@ -15,7 +15,7 @@ const LoginForm = ({ onSubmit, newUserRegistration }) => {
 	useEffect(() => {
 		clearErrors(["email", "password"]);
 		reset();
-	}, [clearErrors, reset]);
+	}, [newUserRegistration]); // eslint-disable-line
 
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
