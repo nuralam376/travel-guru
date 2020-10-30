@@ -46,8 +46,8 @@ const Header = () => {
                 </Col>
               </Row>
             </Col>
-            s
-            <Col xs={12} sm={12} md={12} lg={6} className="mr-auto">
+
+            <Col xs={12} sm={12} md={12} lg={6} className="ml-auto">
               <Nav className="nav">
                 <Link to="/" className="nav-link">
                   Home
